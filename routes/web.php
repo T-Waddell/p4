@@ -11,9 +11,15 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'FoodController@index');
+Route::get('/tracker', 'FoodController@track');
+Route::get('/foodlog', 'FoodController@log');
+Route::get('/edit', 'FoodController@edit');
+
+/*
+ * Practice
+ */
+Route::any('/practice/{n?}', 'PracticeController@index');
 
 Route::get('/debug', function () {
 
