@@ -12,7 +12,8 @@
 */
 
 Route::get('/', 'FoodController@index');
-Route::get('/tracker', 'FoodController@track');
+Route::get('/track', 'FoodController@track');
+Route::get('/trackProcess', 'FoodController@trackProcess');
 Route::get('/foodlog', 'FoodController@log');
 Route::get('/edit', 'FoodController@edit');
 

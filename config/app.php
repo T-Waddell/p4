@@ -2,6 +2,13 @@
 
 return [
 
+    'nav' => [
+        '/' => 'Home',
+        '/practice' => 'Practice',
+        '/tracker' => 'Daily Tracker',
+        '/foodlog' => 'My Food Log',
+    ],
+
     /*
     |--------------------------------------------------------------------------
     | Application Name
