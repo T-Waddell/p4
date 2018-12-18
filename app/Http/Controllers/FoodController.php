@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Food;
 
 class FoodController extends Controller
 {
@@ -81,13 +82,56 @@ class FoodController extends Controller
         ]);
     }
 
+    /**
+     * POST /books
+     * Process the form for adding a new book
+     */
+    public function store(Request $request)
+    {
+        # Validate the request data
+        $request->validate([
+            'category' => 'required',
+            'food' => 'required',
+            'meal' => 'required',
+            'date' => 'required',
+        ]);
 
-    public function log() {
-        return 'Here you can see your entire food log...';
+        $food = new Food();
+        $food->category = $request->category;
+        $food->food = $request->food;
+        $food->meal = $request->meal;
+        $food->date = $request->date;
+
+        $food->save();
+
+        return redirect('/track')->with([
+            'alert' => 'Your food entry was added.'
+        ]);
     }
 
-    public function edit() {
-        return 'Here you can edit your food log...';
+
+    public function diary() {
+        #return 'Here you can see your entire food log...';
+
+        #get the data to display on the page:
+        $foods = Food::orderBy('date')->get();
+
+        #approach 1: query database again
+        #$newBooks = Book::latest()->limit(3)->get();
+
+        #appraoch 2: query the collection from our first query.
+        #$newBooks = $books->sortByDesc('created_at')->take(3);
+
+        return view('diary')->with([
+            'foods' => $foods,
+        ]);
+    }
+
+    public function edit(Request $request, $id) {
+        #return 'Here you can edit your food log...';
+        $food = Food::find($id);
+
+        return view('edit')->with(['food' => $food]);
     }
 
 /*

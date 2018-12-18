@@ -20,6 +20,9 @@
 </header>
 
 <section id='main'>
+    @if(session('alert'))
+        <div class='alert'>{{ session('alert') }}</div>
+    @endif
     @yield('content')
 </section>
 

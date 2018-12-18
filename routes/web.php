@@ -13,9 +13,10 @@
 
 Route::get('/', 'FoodController@index');
 Route::get('/track', 'FoodController@track');
-Route::get('/trackProcess', 'FoodController@trackProcess');
-Route::get('/foodlog', 'FoodController@log');
-Route::get('/edit', 'FoodController@edit');
+#Route::get('/trackProcess', 'FoodController@trackProcess');
+Route::get('/diary', 'FoodController@diary');
+Route::get('/edit/{id}', 'FoodController@edit');
+Route::post('/store', 'BookController@store');
 
 /*
  * Practice

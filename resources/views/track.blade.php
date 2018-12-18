@@ -12,8 +12,8 @@
             <div class="col-6">
                 <h1>{{ config('app.name') }}</h1>
                 <p>This tracker relies on a nickel points system developed by Mona Mislanker, BS and Matthew J. Zirwas, MD (DERMATITIS, vol 24, July/August, 2013). Each food is assigned a points value based on how much nickel it usually contains. Use the tracker below to stay below 15 points per day. Simply log your food as you eat throughout the day, and you'll know exactly where you stand.</p>
-                <form method='GET' action='/trackProcess'>
-    {{-- {{ csrf_field() }} --}}
+                <form method='POST' action='/store'>
+                    {{ csrf_field() }}
                     <label>Category of food:
                         <input type='text' name='category' value='{{ old('category', $category) }}'>
                     </label>

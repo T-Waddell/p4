@@ -5,8 +5,8 @@ return [
     'nav' => [
         '/' => 'Home',
         '/practice' => 'Practice',
-        '/tracker' => 'Daily Tracker',
-        '/foodlog' => 'My Food Log',
+        '/track' => 'Daily Tracker',
+        '/diary' => 'My Food Diary',
     ],
 
     /*
