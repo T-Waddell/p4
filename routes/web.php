@@ -12,12 +12,19 @@
 */
 
 Route::get('/', 'FoodController@index');
-Route::get('/track', 'FoodController@track');
+Route::get('/foods', 'FoodController@diary');
+Route::get('/foods/create', 'FoodController@create');
 #Route::get('/trackProcess', 'FoodController@trackProcess');
-Route::get('/diary', 'FoodController@diary');
-Route::get('/edit/{id}', 'FoodController@edit');
-Route::post('/store', 'BookController@store');
+#Route::get('/diary', 'FoodController@diary');
+Route::post('/foods', 'FoodController@store');
 
+/*EDIT*/
+Route::get('/foods/{id}/edit', 'FoodController@edit');
+Route::put('/foods/{id}', 'FoodController@update');
+
+/*DELETE*/
+Route::get('/foods/{id}/delete', 'FoodController@delete');
+Route::delete('/foods/{id}', 'FoodController@destroy');
 /*
  * Practice
  */

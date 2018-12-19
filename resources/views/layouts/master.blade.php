@@ -16,6 +16,7 @@
 <body>
 
 <header>
+    <h1>{{ config('app.name') }}</h1>
     @include('modules.nav')
 </header>
 

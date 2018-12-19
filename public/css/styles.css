@@ -15,10 +15,34 @@ body {
     /* sticky footer - code from the DWA15 course example application - match footer height */
     margin-bottom: 60px;
 }
+nav {
+    margin: 0 0 2em 0;
+}
+nav ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+nav li {
+    display: inline-block;
+    padding: 1em;
+    list-style-type: none;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    font-size: 1.5em;
+    }
+nav a:hover {
+    font-weight: bold;
+    text-decoration: none;
+}
 
 h1 {
     font-size: 4.5rem;
-    padding: 2rem;
+    padding: 2rem 2rem 0rem 2rem;
     font-weight: 100;
     letter-spacing: .2rem;
     font-family: 'Source Sans Pro', sans-serif;
@@ -49,10 +73,16 @@ label {
 
 input {
     display: block;
+    padding: .25em .5em;
 }
 
 [type='radio'] {
     display: inline;
+}
+
+[type='submit'] {
+    text-align: center;
+    margin: 0 auto;
 }
 
 form {
@@ -67,6 +97,25 @@ form {
 
 .alert {
     text-align: center;
+    font-size: 1.25rem;
+    color: black;
+    width: 100%;
+    padding: .75rem;
+    background-color: white;
+}
+
+.entry {
+    margin: .5rem;
+    padding: .5rem;
+    border: 1px solid white;
+}
+.entry a {
+    color: white;
+    text-decoration: none;
+}
+.entry a:hover {
+    font-weight: bold;
+    text-decoration: underline;
 }
 
 footer {

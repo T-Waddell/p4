@@ -15,11 +15,12 @@ class FoodController extends Controller
      * route: /track
      * Show form to input food information
      */
-    public function track(Request $request) {
+    public function create(Request $request) {
         #return 'Here you can track the foods you eat today and how many nickel points you have remaining...';
         return view('track')->with([
             'category' => $request->session()->get('category', ''),
             'food' => $request->session()->get('food', ''),
+            'servings' => $request->session()->get('servings', 1),
             'meal' => $request->session()->get('meal', ''),
             'mealForPrint' => $request->session()->get('mealForPrint', ''),
             'date' => $request->session()->get('date', ''),
@@ -73,9 +74,10 @@ class FoodController extends Controller
 
         # Redirect back to the search page w/ the data (if any) stored in the session
         # Ref: https://laravel.com/docs/redirects#redirecting-with-flashed-session-data
-        return redirect('/track')->with([
+        return redirect('/foods/create')->with([
             'category' => $category,
             'food' => $food,
+            'servings' => $servings,
             'meal' => $meal,
             'mealForPrint' => $mealForPrint,
             'date' => $date
@@ -83,15 +85,16 @@ class FoodController extends Controller
     }
 
     /**
-     * POST /books
-     * Process the form for adding a new book
+     * POST /foods
+     * Process the form for adding a new food entry
      */
     public function store(Request $request)
     {
         # Validate the request data
         $request->validate([
-            'category' => 'required',
-            'food' => 'required',
+            'category' => 'required|alpha',
+            'food' => 'required|alpha',
+            'servings' => 'required|numeric',
             'meal' => 'required',
             'date' => 'required',
         ]);
@@ -99,12 +102,13 @@ class FoodController extends Controller
         $food = new Food();
         $food->category = $request->category;
         $food->food = $request->food;
+        $food->servings = $request->servings;
         $food->meal = $request->meal;
         $food->date = $request->date;
 
         $food->save();
 
-        return redirect('/track')->with([
+        return redirect('/foods/create')->with([
             'alert' => 'Your food entry was added.'
         ]);
     }
@@ -126,12 +130,71 @@ class FoodController extends Controller
             'foods' => $foods,
         ]);
     }
-
-    public function edit(Request $request, $id) {
+    #GET /foods/{id}/edit
+    public function edit($id)
+    {
         #return 'Here you can edit your food log...';
         $food = Food::find($id);
 
-        return view('edit')->with(['food' => $food]);
+        if (!$food) {
+            return redirect('/foods')->with([
+                'alert' => 'Food entry not found.'
+            ]);
+        }
+        return view('foods.edit')->with([
+            'food' => $food
+        ]);
+    }
+
+    # PUT /foods/{id}
+    public function update(Request $request, $id)
+    {
+        $this->validate($request, [
+            'category' => 'required|alpha',
+            'food' => 'required|alpha',
+            'servings' => 'required|numeric',
+            'meal' => 'required',
+            'date' => 'required',
+        ]);
+
+        $food = Food::find($id);
+        $food->category = $request->input('category');
+        $food->food = $request->input('food');
+        $food->servings = $request->input('servings');
+        $food->meal = $request->input('meal');
+        $food->date = $request->input('date');
+        $food->save();
+
+        return redirect('/foods/'.$id.'/edit')->with([
+            'alert' => 'Your changes were saved.'
+        ]);
+    }
+
+    # GET /foods/{id}/delete
+    public function delete($id)
+    {
+        $food = Food::find($id);
+
+        if (!$food) {
+            return redirect('/foods')->with([
+                'alert' => 'Food entry not found.'
+            ]);
+        }
+
+        return view('foods.delete')->with([
+            'food' => $food
+        ]);
+    }
+
+    #delete
+    public function destroy(Request $request, $id)
+    {
+        $food = Food::find($id);
+        $food->delete();
+
+        return redirect('/foods')->with([
+            'alert' => 'The following entry was deleted: '.$food->date.' - '.$food->food.' - '.$food->meal
+        ]);
     }
 
 /*

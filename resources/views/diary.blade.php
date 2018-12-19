@@ -10,7 +10,6 @@
             <div class="col">
             </div>
             <div class="col-6">
-                <h1>{{ config('app.name') }}</h1>
                 <p>This tracker relies on a nickel points system developed by Mona Mislanker, BS and Matthew J. Zirwas, MD (DERMATITIS, vol 24, July/August, 2013). Each food is assigned a points value based on how much nickel it usually contains. The goal is to stay below 15 points per day.</p>
                 <h2>My Food Diary</h2>
                 <p>See all the food you've logged below.</p>

@@ -1,8 +1,6 @@
 <div class='entry'>
     <h3>{{ $food->date }}</h3>
-    <ul>
-        <li><em>{{ $food->food }}</em> - {{ $food->meal }}</li>
-        {{-- <li>Added {{ $food->created_at->format('m/d/y g:ia') }}</li>  --}}
-    </ul>
-    <a href='/edit/{{$food->id}}'>Edit</a>
+        <p><em>{{ $food->food }}</em> - {{ $food->meal }}</p>
+        <lp>{{ $food->servings }} servings</p>
+    <a href='/foods/{{$food->id}}/edit'>Edit</a>    |    <a href='/foods/{{$food->id}}/delete'>Delete</a>
 </div>
