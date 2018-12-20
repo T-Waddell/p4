@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Food;
+use App\Tag;
 
 class FoodController extends Controller
 {
@@ -17,6 +18,8 @@ class FoodController extends Controller
      */
     public function create(Request $request) {
         #return 'Here you can track the foods you eat today and how many nickel points you have remaining...';
+        $tags = Tag::getForCheckboxes();
+
         return view('track')->with([
             'category' => $request->session()->get('category', ''),
             'food' => $request->session()->get('food', ''),
@@ -24,6 +27,7 @@ class FoodController extends Controller
             'meal' => $request->session()->get('meal', ''),
             'mealForPrint' => $request->session()->get('mealForPrint', ''),
             'date' => $request->session()->get('date', ''),
+            'tags' => $tags
         ]);
     }
 
@@ -108,6 +112,9 @@ class FoodController extends Controller
 
         $food->save();
 
+        # Note: Have to sync tags *after* the book has been saved so there's a book_id to store in the pivot table
+        $food->tags()->sync($request->tags);
+
         return redirect('/foods/create')->with([
             'alert' => 'Your food entry was added.'
         ]);
@@ -141,8 +148,14 @@ class FoodController extends Controller
                 'alert' => 'Food entry not found.'
             ]);
         }
+
+        $allTags = Tag::getForCheckboxes();
+        $tags = $food->tags->pluck('tags.id')->toArray();
+
         return view('foods.edit')->with([
-            'food' => $food
+            'food' => $food,
+            'allTags' => $allTags,
+            'tags' => $tags
         ]);
     }
 
@@ -158,6 +171,7 @@ class FoodController extends Controller
         ]);
 
         $food = Food::find($id);
+        $food->tags()->sync($request->tags);
         $food->category = $request->input('category');
         $food->food = $request->input('food');
         $food->servings = $request->input('servings');
@@ -180,6 +194,8 @@ class FoodController extends Controller
                 'alert' => 'Food entry not found.'
             ]);
         }
+
+        $food->tags()->detach();
 
         return view('foods.delete')->with([
             'food' => $food

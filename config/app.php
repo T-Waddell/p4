@@ -4,7 +4,6 @@ return [
 
     'nav' => [
         '/' => 'Home',
-        '/practice' => 'Practice',
         '/foods/create' => 'Daily Tracker',
         '/foods' => 'My Food Diary',
     ],

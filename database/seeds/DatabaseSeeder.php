@@ -15,5 +15,7 @@ class DatabaseSeeder extends Seeder
         $this->call(FoodsTableSeeder::class);
         //$this->call(Nickel_ScoresTableSeeder::class);
         $this->call(ScoresTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
+        $this->call(FoodTagTableSeeder::class);
     }
 }

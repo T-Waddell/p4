@@ -15,12 +15,6 @@
                 <form method='POST' action='/foods/{{ $food->id }}'>
                     {{ method_field('put') }}
                     {{ csrf_field() }}
-                    <label>Category of food:
-                        <input type='text' name='category' value='{{ old('category', $food->category) }}'>
-                    </label>
-                    @if($errors->get('category'))
-                        <div class='error'>{{ $errors->first('category') }}</div>
-                    @endif
                     <label>Food:
                         <input type='text' name='food' value='{{ old('food', $food->food) }}'>
                     </label>
@@ -61,6 +55,22 @@
                     @if($errors->get('date'))
                         <div class='error'>{{ $errors->first('date') }}</div>
                     @endif
+                    <label>Tags
+                    @foreach($tags as $tagId => $tagName)
+                        <ul>
+                            <li>
+                                <label>
+                                    <input
+                                            {{ (in_array($tagId, $tags)) ? 'checked' : '' }}
+                                            type='checkbox'
+                                            name='tags[]'
+                                            value='{{ $tagId }}'>
+                                    {{ $tagName }}
+                                </label>
+                            </li>
+                        </ul>
+                    @endforeach
+                    </label>
                     <input type='submit' value='Update Food Entry'>
                 </form>
                 @if(count($errors) > 0)

@@ -30,6 +30,8 @@
 <footer>
     &copy; Tara Waddell {{ date('Y') }} -
     <a href='http://github.com/T-Waddell/p4'>View on Github</a>
+    <p>The low-nickel diet scoring system was published by Mona Mislankar, BS and Matthew J. Zirwas, MD.</p>
+    <p>Mislanker, M., Zirwas, M.J. (2013, July/August). Low-Nickel Diet Scoring System for Systemic Nickel Allergy. <i>Dermatitis</i>, 24(4), 190-195.</p>
 </footer>
 
 </body>

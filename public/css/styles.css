@@ -80,6 +80,10 @@ input {
     display: inline;
 }
 
+[type='checkbox'] {
+    display: inline;
+}
+
 [type='submit'] {
     text-align: center;
     margin: 0 auto;
@@ -87,6 +91,18 @@ input {
 
 form {
     margin: 2rem 0;
+}
+
+form ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+}
+
+form li {
+    display: inline-block;
+    padding: 0em;
+    list-style-type: none;
 }
 
 .error {
